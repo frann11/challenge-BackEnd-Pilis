@@ -3,9 +3,7 @@ require('dotenv').config({path:'variables.env'});
 
 const {DATABASE, DATABASE_TEST, NODE_ENV} = process.env
 
-const connectionString = NODE_ENV === 'test'
-? DATABASE_TEST 
-: DATABASE
+const connectionString = DATABASE
 
 mongoose.connect(connectionString, {useNewUrlParser:true})
 
