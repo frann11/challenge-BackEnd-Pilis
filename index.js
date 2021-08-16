@@ -26,4 +26,3 @@ const server = app.listen(port,host, () => {
     console.log(`el servidor esta funcionando`)
   })
 
-  module.exports = {app, server}
