@@ -9,7 +9,7 @@ module.exports = () =>{
         check("titulo", "titulo debe contener un valor").trim().not().isEmpty(),
         check("descripcion", "descripcion debe contener un valor").trim().not().isEmpty(),
         check("lugar", "lugar debe contener un valor").trim().not().isEmpty(),
-        check("fechaHoraPrecio", "fechas debe contener valore del estilo 'dd/mm/aa,hh:hh,precio'").matches(/(\d{2})(\/|-)(\d{2})(\/|-)(\d{2})(\,\d{2}\:\d{2}\,\d*)/),
+        check("fechas", "fechas debe contener valore del estilo 'dd/mm/aa,hh:hh,precio'").matches(/(\d{2})(\/|-)(\d{2})(\/|-)(\d{2})(\,\d{2}\:\d{2}\,\d*)/),
         check("imagen", "imagen debe no estar vacia y ser una URL valida").not().isEmpty().isURL().matches(/(.*.jpg)|(.*.png)/)
     ],
     (req, res) => {

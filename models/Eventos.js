@@ -15,7 +15,7 @@ const eventosSchema = new mongoose.Schema({
         trim: true,
         required : true
     },
-    fechaHoraPrecio:{
+    fechas:{
         
         type: [{
             fecha: Date,
@@ -51,7 +51,7 @@ eventosSchema.set('toJSON', {
       returnedObject.id = returnedObject._id.toString()
       delete returnedObject._id
       delete returnedObject.__v
-      delete returnedObject.fechaHoraPrecio._id
+      delete returnedObject.fechas._id
     }
   })
 

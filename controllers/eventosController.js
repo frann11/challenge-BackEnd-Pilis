@@ -6,8 +6,8 @@ const helpers =  require('../helpers/helpers')
 
 exports.mostrarEventos = async(req,res,next) => {
   try{
-    var eventos = await Eventos.find({},{'descripcion':0,'user':0,'destacado':0,'fechaHoraPrecio.precio':0})
-    var destacados = await Eventos.find({'destacado': true },{'destacado':0,'fechaHoraPrecio.precio':0,'user':0})
+    var eventos = await Eventos.find({},{'descripcion':0,'user':0,'destacado':0,'fechas.precio':0})
+    var destacados = await Eventos.find({'destacado': true },{'destacado':0,'fechas.precio':0,'user':0})
     
     if (!eventos.length){
       throw Error ( 'No hay eventos disponibles') 
@@ -52,11 +52,11 @@ exports.mostrarEvento = async(req,res,next) => {
       res.status(400).json({'errors':[{'msg':'token de autorizacion invalido'}]});
     }
     const userId = decodedToken.id
-    const {titulo,descripcion,lugar,destacado=false,fechaHoraPrecio,imagen } = req.body
+    const {titulo,descripcion,lugar,destacado=false,fechas,imagen } = req.body
     const user = await Usuarios.findById(userId)
 
    
-   var fechas = helpers.obtenerFechas(fechaHoraPrecio)
+   var fechas = helpers.obtenerFechas(fechas)
 
    helpers.ordenar(fechas)
 
@@ -65,7 +65,7 @@ exports.mostrarEvento = async(req,res,next) => {
       descripcion,
       lugar,
       destacado,
-      fechaHoraPrecio:fechas,
+      fechas:fechas,
       user : userId,
       imagen
     }
