@@ -1,0 +1,31 @@
+{
+  "name": "challenge-backend-pilis",
+  "version": "1.0.0",
+  "description": "Challenge final para certificacion Backend NodeJS PILIS ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_VNV=development nodemon index.js",
+    "desarrollo": "cross-env NODE_ENV=production nodemon ./index.js",
+    "start" : "node ./index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --detectOpenHandles"
+  },
+  "author": "Francisco Nicolas Berthet Cosentino",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.5"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
