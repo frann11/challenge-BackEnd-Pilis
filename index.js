@@ -22,7 +22,9 @@ app.use('/api/eventos',eventosRoutes())
 const host = '0.0.0.0'
 const port = process.env.PORT
 
-const server = app.listen(port,host, () => {
+
+const server = app.listen(5000, () => {
     console.log(`el servidor esta funcionando`)
   })
 
+  module.exports = {app, server}

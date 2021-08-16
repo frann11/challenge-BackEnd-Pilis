@@ -13,12 +13,12 @@ exports.mostrarEventos = async(req,res,next) => {
       throw Error ( 'No hay eventos disponibles') 
     } else {
       
-      var eventosMostrar = eventos
+       var eventosMostrar = eventos
  
-      for (evento of eventosMostrar){
-        (evento['fechas'] = helpers.arreglarFechas(evento['fechas']))
-        }    
-    }
+       for (evento of eventosMostrar){
+         (evento['fechas'] = helpers.arreglarFechas(evento['fechas']))
+         }    
+     }
      if (!destacados.length){
       destacadosMostrar = 'no hay eventos destacados'
      } else {
@@ -29,7 +29,7 @@ exports.mostrarEventos = async(req,res,next) => {
 
     }
 
-    res.json({'eventos':[eventosMostrar],'destacados':[destacadosMostrar]})
+    res.json({'eventos':[eventos],'destacados':[destacadosMostrar]})
   } catch(error){
     res.status(400).json({'errors':[{'msg':error.message}]});
   } 
@@ -108,13 +108,13 @@ exports.mostrarEvento = async(req,res,next) => {
   
   
   const decodedToken = jwt.verify(token, process.env.TOKENSECRET)
-
+  
   if (!token || !decodedToken.id || req.params.id != decodedToken.id){
     res.status(401).json({'errors':[{'msg':'Autorizacion Invalida'}]});
   }
 
   const userId = decodedToken.id
-  const eventos = await Eventos.find({user:userId},{user:0})
+  const eventos = await Eventos.find({user:userId},{user:0}).sort({'fechas.fecha':1})
 
 
   res.json(eventos)
