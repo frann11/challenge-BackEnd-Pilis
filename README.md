@@ -18,6 +18,12 @@ Link a la API Rest en heroku : https://pacific-citadel-99354.herokuapp.com/
 - Listado de eventos del usuario
 - Se debe poder crear eventos una vez logeado
 
+### Usuario de prueba:
+```
+username: test
+password: test
+```
+
 ## Endpoints 
 
 ```
