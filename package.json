@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_VNV=development nodemon index.js",
     "desarrollo": "cross-env NODE_ENV=production nodemon ./index.js",
-    "start" : "node ./index.js",
+    "start" : "nodemon ./index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --detectOpenHandles"
   },
   "author": "Francisco Nicolas Berthet Cosentino",

@@ -52,13 +52,13 @@ exports.mostrarEvento = async(req,res,next) => {
       res.status(400).json({'errors':[{'msg':'token de autorizacion invalido'}]});
     }
     const userId = decodedToken.id
-    const {titulo,descripcion,lugar,destacado=false,imagen } = req.body
-    var {fechas} = req.body
+    var {titulo,descripcion,lugar,destacado=false,imagen,fechas } = req.body
+    console.log(fechas)
     const user = await Usuarios.findById(userId)
 
+  fechas=helpers.obtenerFechas(fechas)
   fechas = helpers.ordenar(fechas)
-  fechas =helpers.obtenerFechas(fechas)
- 
+  
 
     valores = {
       titulo,
@@ -76,8 +76,10 @@ exports.mostrarEvento = async(req,res,next) => {
         const savedEvento = await evento.save()
         user.eventos = user.eventos.concat(savedEvento._id)
         await user.save()
-
-        res.json(savedEvento)
+        console.log(savedEvento['fechas'],'asd')
+        var mostrar = savedEvento.toJSON()
+        mostrar['fechas']=helpers.normalizarFechas(mostrar['fechas'] )
+        res.json(mostrar)
 
     } catch (error){
       res.status(400).json({'errors':[{'msg':error.message}]});
