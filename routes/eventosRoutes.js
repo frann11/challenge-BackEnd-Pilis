@@ -22,7 +22,20 @@ module.exports = () =>{
         }
 )
                   
-    router.get('/:id', eventosController.mostrarEvento) 
+    router.get('/:id', 
+    [        
+        check("id", "id de evento invalido").isLength({min:24 , max:24}),
+    ],
+    (req, res) => {
+        try {
+            validationResult(req).throw();
+            eventosController.mostrarEvento(req,res)
+          } catch (err) {
+            res.status(400).json(err);
+          }
+        }
+)
+    
     router.get('/user/:id', eventosController.mostrarEventosPropios)
     
 return router
