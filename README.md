@@ -67,13 +67,16 @@ Requiere header con bearer token obtenido al logearse
 Authorization: Bearer {TOKEN}
 ```
 
-Requiere los siguientes parametros en el body 
+Requiere los siguientes parametros en el body <br>
+Se puede agregar mas de un parametro 'fechas' representando el dia, hora y precio de esa fecha en particular
 ```
 { 
   "titulo": "Salida al aire libre"
   "descripcion": Paseo grupal
   "lugar": Avellaneda,Buenos Aires
   "fechas" (en formato *DD/MM/AA,HH:HH,PrecioDelDia* separados por coma) : 20/02/20,15:00;200
+  *"fechas": segunda fecha,hora,precio,
+  *"fechas": tercera fecha,hora precio.
   "imagen": 'URL A LA IMAGEN'
   }
 ```
