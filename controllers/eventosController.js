@@ -42,7 +42,10 @@ exports.mostrarEvento = async(req,res,next) => {
       if (!evento ){
         throw Error ( 'evento invalido') 
       }
-      res.json(evento)
+      var eventoMostrar = evento.toJSON()
+      eventoMostrar['fechas']=helpers.normalizarFechas(eventoMostrar['fechas'] )
+      
+      res.json(eventoMostrar)
     } catch (error){ 
       res.status(400).json({'errors':[{'msg':error.message}]});
     } 
