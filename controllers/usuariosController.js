@@ -30,14 +30,9 @@ exports.iniciarSesion = async(req,res) => {
     })}
 } 
 
-exports.mostrarUsuarios = async(req,res,) => {
-    const users = await Usuarios.find({}).populate('eventos', )
-    res.json(users)
-} 
 
 exports.crearCuenta = async(req,res,next) => {
 
-    // chequear si usuario ya existe 
  try   
  {   const { username, password} = req.body
     const user = await Usuarios.find({username:username})

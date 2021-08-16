@@ -1,14 +1,10 @@
 const express = require('express')
 const router = express.Router();
 const usuariosController = require('../controllers/usuariosController')
-const { check, oneOf, validationResult } = require('express-validator');
-const { buildCheckFunction } = require('express-validator');
-const { buildSanitizeFunction } = require('express-validator');
-const sanitizeBodyAndQuery = buildSanitizeFunction(['body', 'query']);
+const { check, validationResult } = require('express-validator');
+
 
 module.exports = () =>{
-    router.get('/', usuariosController.mostrarUsuarios )
-
     router.post('/login'
     ,[
         check("username", "username debe contener un valor").not().isEmpty().trim().escape(),
