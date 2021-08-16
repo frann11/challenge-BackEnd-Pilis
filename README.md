@@ -80,7 +80,7 @@ Requiere los siguientes parametros en el body
 ```
 GET /api/eventos/user/:id 
 ```
-- Requiere header con token de autorizacion 
+- Requiere header con token de autorizacion obtenido al logearse
 - Devuelve todos los eventos posteados por el usuario cuando el id corresponda al del usuario logeado
 
 
