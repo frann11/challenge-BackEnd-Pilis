@@ -23,7 +23,7 @@ const host = '0.0.0.0'
 const port = process.env.PORT
 
 
-const server = app.listen(host,port, () => {
+const server = app.listen(port,host, () => {
     console.log(`el servidor esta funcionando`)
   })
 
