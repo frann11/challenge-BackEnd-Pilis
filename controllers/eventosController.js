@@ -55,9 +55,9 @@ exports.mostrarEvento = async(req,res,next) => {
     const {titulo,descripcion,lugar,destacado=false,fechas,imagen } = req.body
     const user = await Usuarios.findById(userId)
 
-   
-   helpers.obtenerFechas(fechas)
-   helpers.ordenar(fechas)
+  fechas = helpers.ordenar(fechas)
+  fechas =helpers.obtenerFechas(fechas)
+ 
 
     valores = {
       titulo,
