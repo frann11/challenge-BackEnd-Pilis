@@ -24,7 +24,7 @@ module.exports = () =>{
                   
     router.get('/:id', 
     [        
-        check("id", "id de evento invalido").isLength({min:24 , max:24}),
+        check("id", "formato de id invalido").isLength({min:24 , max:24}),
     ],
     (req, res) => {
         try {
