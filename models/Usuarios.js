@@ -19,6 +19,7 @@ const usuariosSchema = new mongoose.Schema({
         ref:'Eventos'
     }]   
    
+    
 })
 
 usuariosSchema.set('toJSON', {
