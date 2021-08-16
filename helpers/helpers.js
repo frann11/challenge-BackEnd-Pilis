@@ -37,7 +37,12 @@ exports.normalizarFechas = function (parametro){
     var cambiar = []
 
     for (evento in parametro){
-      console.log(parametro[evento])
+     // console.log(evento)
+      console.log(parametro[evento],'parametro')
+      console.log(typeof(parametro[evento]['fecha']))
+      if (typeof(parametro[evento]['fecha']) == 'string') {
+        parametro[evento]['fecha'] = new Date(parametro[evento]['fecha'])
+      }
       let hora = (parametro[evento].fecha.toLocaleTimeString().slice(0,-3))
       cambiar.push({'fecha':parametro[evento].fecha.toLocaleString('default', {  day: 'numeric', month: 'short'}) + ' '+hora , 'precio':parametro[evento].precio})
       }

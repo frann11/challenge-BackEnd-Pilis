@@ -6,21 +6,29 @@ const helpers =  require('../helpers/helpers')
 
 exports.mostrarEventos = async(req,res,next) => {
   try{
-    var eventos = await Eventos.find({},{'descripcion':0,'user':0,'destacado':0,'fechas.precio':0})
-    var destacados = await Eventos.find({'destacado': true },{'destacado':0,'fechas.precio':0,'user':0})
-    
+    var eventos = await Eventos.find({},{'descripcion':0,'user':0,'destacado':0})
+    var destacados = await Eventos.find({'destacado': true },{'destacado':0,'user':0})
+ 
     if (!eventos.length){
       throw Error ( 'No hay eventos disponibles') 
     } else {
-      helpers.normalizarFechas(eventos)
+      var eventosMostrar = JSON.stringify(eventos)
+      eventosMostrar = JSON.parse(eventosMostrar)
+      for (evento of eventosMostrar){
+        evento['fechas']=helpers.normalizarFechas(evento['fechas'] )
+        }    
     }
      if (!destacados.length){
-       destacados = 'no hay eventos destacados'
+      destacadosMostrar = 'no hay eventos destacados'
      } else {
-      helpers.normalizarFechas(destacados)
+      var destacadosMostrar = destacados
+      for (evento of destacadosMostrar){
+          evento['fechas']=helpers.normalizarFechas(evento['fechas'] )
+         }
+
     }
 
-    res.json({'eventos':[eventos],'destacados':[destacados]})
+    res.json({'eventos':[eventosMostrar],'destacados':[destacadosMostrar]})
   } catch(error){
     res.status(400).json({'errors':[{'msg':error.message}]});
   } 
@@ -76,7 +84,6 @@ exports.mostrarEvento = async(req,res,next) => {
         const savedEvento = await evento.save()
         user.eventos = user.eventos.concat(savedEvento._id)
         await user.save()
-        console.log(savedEvento['fechas'],'asd')
         var mostrar = savedEvento.toJSON()
         mostrar['fechas']=helpers.normalizarFechas(mostrar['fechas'] )
         res.json(mostrar)
