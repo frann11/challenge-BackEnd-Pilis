@@ -52,7 +52,8 @@ exports.mostrarEvento = async(req,res,next) => {
       res.status(400).json({'errors':[{'msg':'token de autorizacion invalido'}]});
     }
     const userId = decodedToken.id
-    const {titulo,descripcion,lugar,destacado=false,fechas,imagen } = req.body
+    const {titulo,descripcion,lugar,destacado=false,imagen } = req.body
+    var {fechas} = req.body
     const user = await Usuarios.findById(userId)
 
   fechas = helpers.ordenar(fechas)
