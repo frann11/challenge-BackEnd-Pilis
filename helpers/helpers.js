@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 
 exports.ordenar = function (parametro) {
-  console.log(parametro)
   parametro.sort(function(a, b) {
     if (Array.isArray(a) && Array.isArray(b)){        
       var keyA = (a.fechas[0].fecha.getTime())
@@ -19,7 +18,6 @@ exports.ordenar = function (parametro) {
   return parametro
 }
 exports.normalizarFechas = function (parametro){
-  console.log(parametro,'parametro')
   exports.ordenar(parametro)
     parametro.sort(function(a, b) {
       if (Array.isArray(a) && Array.isArray(b)){        
@@ -37,21 +35,19 @@ exports.normalizarFechas = function (parametro){
     var cambiar = []
 
     for (evento in parametro){
-     // console.log(evento)
-      console.log(parametro[evento],'parametro')
-      console.log(typeof(parametro[evento]['fecha']))
+      
+      
+      
       if (typeof(parametro[evento]['fecha']) == 'string') {
         parametro[evento]['fecha'] = new Date(parametro[evento]['fecha'])
       }
       let hora = (parametro[evento].fecha.toLocaleTimeString().slice(0,-3))
       cambiar.push({'fecha':parametro[evento].fecha.toLocaleString('default', {  day: 'numeric', month: 'short'}) + ' '+hora , 'precio':parametro[evento].precio})
       }
-      console.log(cambiar)
     return cambiar
 }
 
 exports.obtenerFechas= function(arg){
-  console.log(arg)
   var fechas = []
   for (x of arg){
     let j = x.split(',')
@@ -63,4 +59,16 @@ exports.obtenerFechas= function(arg){
     fechas.push({'fecha' : dt, 'precio' : parseInt(precio)})
 }
   return fechas
+}
+
+exports.arreglarFechas = function (params) {
+  var agregar = []
+  for (param of params){
+    let nuevo = {}
+    let hora = param['fecha'].toLocaleTimeString().slice(0,-3)
+    {nuevo['fecha']=param['fecha'].toLocaleString('default', {  day: 'numeric', month: 'short'}) + ' '+hora}
+    {nuevo['precio'] = param['precio']}
+    agregar.push(nuevo)
+  }
+  return(agregar)
 }

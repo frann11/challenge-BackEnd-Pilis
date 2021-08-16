@@ -6,16 +6,17 @@ const helpers =  require('../helpers/helpers')
 
 exports.mostrarEventos = async(req,res,next) => {
   try{
-    var eventos = await Eventos.find({},{'descripcion':0,'user':0,'destacado':0})
+    var eventos = await Eventos.find({},{'descripcion':0,'user':0,'destacado':0,'__v':0}).sort({'fechas.fecha' : 1}).lean()
     var destacados = await Eventos.find({'destacado': true },{'destacado':0,'user':0})
  
     if (!eventos.length){
       throw Error ( 'No hay eventos disponibles') 
     } else {
-      var eventosMostrar = JSON.stringify(eventos)
-      eventosMostrar = JSON.parse(eventosMostrar)
+      
+      var eventosMostrar = eventos
+ 
       for (evento of eventosMostrar){
-        evento['fechas']=helpers.normalizarFechas(evento['fechas'] )
+        (evento['fechas'] = helpers.arreglarFechas(evento['fechas']))
         }    
     }
      if (!destacados.length){
@@ -52,6 +53,7 @@ exports.mostrarEvento = async(req,res,next) => {
   }
 
   exports.agregarEvento = async(req,res,next) => {
+    try{
     const authorization = req.get ('authorization')
     let token = null
     if (authorization && authorization.toLowerCase().startsWith('bearer')){
@@ -60,11 +62,10 @@ exports.mostrarEvento = async(req,res,next) => {
     
     const decodedToken = jwt.verify(token, process.env.TOKENSECRET)
     if (!token || !decodedToken.id){
-      res.status(400).json({'errors':[{'msg':'token de autorizacion invalido'}]});
+      throw Error ( 'token de autorizacion invalido') 
     }
     const userId = decodedToken.id
     var {titulo,descripcion,lugar,destacado=false,imagen,fechas } = req.body
-    console.log(fechas)
     const user = await Usuarios.findById(userId)
 
   fechas=helpers.obtenerFechas(fechas)
@@ -83,7 +84,7 @@ exports.mostrarEvento = async(req,res,next) => {
 
     const evento = new Eventos(valores)
 
-    try{
+    
         const savedEvento = await evento.save()
         user.eventos = user.eventos.concat(savedEvento._id)
         await user.save()
