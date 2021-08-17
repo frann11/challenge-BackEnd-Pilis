@@ -88,5 +88,6 @@ GET /api/eventos/user/:id
 
 
 ## TODOS:
+- Agregar testing
 - Desarrollo frontend segun requerimientos
 - Implementacion Fullstack
