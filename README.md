@@ -87,3 +87,6 @@ GET /api/eventos/user/:id
 - Devuelve todos los eventos posteados por el usuario cuando el id corresponda al del usuario logeado
 
 
+## TODOS:
+- Desarrollo frontend segun requerimientos
+- Implementacion Fullstack
